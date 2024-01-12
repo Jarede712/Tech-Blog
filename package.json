@@ -1,0 +1,21 @@
+{
+  "name": "tech-blog",
+  "version": "1.0.0",
+  "description": "A blog page for people wanting to post and discuss anything and everything about tech",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jarede712/Tech-Blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jarede712/Tech-Blog/issues"
+  },
+  "homepage": "https://github.com/Jarede712/Tech-Blog#readme"
+}
