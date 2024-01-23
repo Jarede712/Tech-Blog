@@ -1,0 +1,77 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Tech Blog</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/jass.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          {{#if logged_in}}
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="#" id="logout-button">Logout</a></li>
+          {{else}}
+            <li><a href="/login">Login</a></li>
+            <li><a href="/signup">Signup</a></li>
+          {{/if}}
+        </ul>
+      </nav>
+    </header>
+
+    <main class="dashboard">
+      <h1>Your Dashboard</h1>
+
+      <section class="new-post-section">
+        <h2>Create a New Post</h2>
+        <form id="new-post-form">
+          <input
+            type="text"
+            id="post-title"
+            placeholder="Post Title"
+            required
+          />
+          <textarea
+            id="post-content"
+            placeholder="Post Content"
+            required
+          ></textarea>
+          <button type="submit">Submit Post</button>
+        </form>
+      </section>
+
+      {{#if posts.length}}
+        <section class="user-posts">
+          <h2>Your Posts</h2>
+          {{#each posts}}
+            <article class="post">
+              <h3 class="post-title">{{this.title}}</h3>
+              <p class="post-content">{{this.content}}</p>
+              <div class="post-controls">
+                <a href="/posts/edit/{{this.id}}" class="edit">Edit</a>
+                <button data-id="{{this.id}}" class="delete">Delete</button>
+              </div>
+            </article>
+          {{/each}}
+        </section>
+      {{else}}
+        <p>You have not created any posts yet.</p>
+      {{/if}}
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Tech Blog. All rights reserved.</p>
+    </footer>
+
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+    <script src="/js/main.js"></script>
+    {{#if logged_in}}
+      <script src="/js/logout.js"></script>
+    {{/if}}
+  </body>
+</html>

@@ -4,22 +4,41 @@ const { User } = require("../../models");
 const bcrypt = require("bcrypt");
 const withAuth = require("../../utils/auth");
 
+router.get("/signup", (req, res) => {
+  res.render("signup");
+});
+
 // Route to register a new user
 router.post("/signup", async (req, res) => {
   try {
+    // Check if a user with the given email already exists
+    const existingUser = await User.findOne({
+      where: { email: req.body.email },
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ message: "Email is already in use" });
+    }
+
     const newUser = await User.create({
       ...req.body,
       password: await bcrypt.hash(req.body.password, 10),
     });
 
-    req.session.save(() => {
-      req.session.userId = newUser.id;
-      req.session.logged_in = true;
+    req.session
+      .save(() => {
+        req.session.userId = newUser.id;
+        req.session.logged_in = true;
 
-      res.status(200).json(newUser);
-    });
+        return res.status(200).json(newUser);
+      })
+      .catch((err) => {
+        console.log(err); // Log any errors that occur when saving the session
+        return res.status(500).json(err);
+      });
   } catch (err) {
-    res.status(400).json(err);
+    console.log(err); // Log any errors that occur when creating the user
+    return res.status(400).json(err);
   }
 });
 

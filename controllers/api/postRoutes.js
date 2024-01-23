@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Routes();
+const router = express.Router();
 const { Post } = require("../../models");
 const withAuth = require("../../utils/auth");
 
@@ -38,7 +38,7 @@ router.post("/", withAuth, async (req, res) => {
       userId: req.session.userId,
     });
 
-    res.status;
+    res.status(200).json(newPost);
   } catch (err) {
     res.status(400).json(err);
   }

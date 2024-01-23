@@ -57,12 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
       password: document.querySelector("#password-signup").value.trim(),
     };
 
+    console.log(newUser); // Log the new user data
+
     if (newUser.username && newUser.email && newUser.password) {
       try {
         const response = await fetch("/api/users/signup", {
           method: "POST",
           body: JSON.stringify(newUser),
           headers: { "Content-Type": "application/json" },
+        }).catch((err) => {
+          console.error("Fetch error:", err); // Log any errors that occur when sending the Fetch request
         });
 
         if (response.ok) {
@@ -110,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     const comment = {
       content: document.querySelector("#comment-content").value.trim(),
-      // Assuming you have a way to get the post ID
       post_id: document.querySelector("#post-id").value,
     };
 
@@ -132,6 +135,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
-
-  // Additional functionalities like editing and deleting posts can be added here
 });

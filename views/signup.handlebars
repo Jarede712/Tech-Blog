@@ -1,0 +1,54 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup - Tech Blog</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/jass.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/login">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="signup-form">
+        <h1>Signup</h1>
+        <form id="signup-form" action="/api/users/signup" method="POST">
+          <div class="form-group">
+            <label for="username-signup">Username</label>
+            <input type="text" id="username-signup" name="username" required />
+          </div>
+          <div class="form-group">
+            <label for="email-signup">Email</label>
+            <input type="email" id="email-signup" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="password-signup">Password</label>
+            <input
+              type="password"
+              id="password-signup"
+              name="password"
+              required
+            />
+          </div>
+          <button type="submit">Create Account</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Tech Blog. All rights reserved.</p>
+    </footer>
+
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

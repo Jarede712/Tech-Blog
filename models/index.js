@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const sequelize = require("../config/connection");
 
 // Import the models
-const User = require("/User");
+const User = require("./User"); // Updated this line
 const Post = require("./Post");
 const Comment = require("./Comment");
 

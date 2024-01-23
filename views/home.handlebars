@@ -1,0 +1,61 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tech Blog</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/jass.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          {{#if logged_in}}
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="#" id="logout-button">Logout</a></li>
+          {{else}}
+            <li><a href="/login">Login</a></li>
+            <li><a href="/signup">Signup</a></li>
+          {{/if}}
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h1>Welcome to Tech Blog</h1>
+      <p>Discover and share insights on the latest in technology.</p>
+
+      {{#if posts.length}}
+        <section class="posts">
+          {{#each posts}}
+            <article class="post">
+              <h2 class="post-title"><a
+                  href="/posts/{{this.id}}"
+                >{{this.title}}</a></h2>
+              <p class="post-content">{{this.content}}</p>
+              <span class="post-author">Posted by {{this.author}}</span>
+
+              <span class="post-date">{{formatDate this.createdAt}}</span>
+
+            </article>
+          {{/each}}
+        </section>
+      {{else}}
+        <p>There are currently no posts. Check back soon!</p>
+      {{/if}}
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Tech Blog. All rights reserved.</p>
+    </footer>
+
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+    <script src="/js/main.js"></script>
+    {{#if logged_in}}
+      <script src="/js/logout.js"></script>
+    {{/if}}
+  </body>
+</html>

@@ -1,4 +1,4 @@
-/* Basic Reset */
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -6,78 +6,81 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Arial", sans-serif;
   line-height: 1.6;
-  color: #333;
   background-color: #f4f4f4;
   padding: 20px;
+  color: #333;
 }
 
 header {
   background: #333;
   color: #fff;
-  padding: 10px 0;
+  padding: 20px 0;
   text-align: center;
 }
 
-header a {
-  color: #fff;
-  text-decoration: none;
+header nav ul {
+  list-style: none;
+}
+
+header nav ul li {
+  display: inline;
   margin: 0 10px;
 }
 
-header a:hover {
+header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+header nav ul li a:hover {
   text-decoration: underline;
 }
 
-nav ul {
-  list-style: none;
-  padding: 0;
-}
-
-nav ul li {
-  display: inline;
-}
-
 main {
-  margin-top: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 footer {
   text-align: center;
-  padding: 20px 0;
-  background: #333;
-  color: #fff;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  margin-top: 20px;
 }
 
-/* Form Styles */
+/* Forms */
 form {
-  width: 300px;
-  margin: 0 auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
+  margin-top: 20px;
 }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form textarea {
+form .form-group {
+  margin-bottom: 15px;
+}
+
+form .form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+form .form-group input[type="text"],
+form .form-group input[type="email"],
+form .form-group input[type="password"],
+form .form-group textarea {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
 form button {
-  width: 100%;
-  padding: 10px;
+  display: inline-block;
   background: #333;
-  color: white;
+  color: #fff;
+  padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -87,40 +90,29 @@ form button:hover {
   background: #555;
 }
 
-/* Post and Comment Styles */
-.post,
-.comment {
+/* Post Styles */
+.post {
   background: #fff;
-  padding: 15px;
   margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 4px;
 }
 
 .post-title {
   font-size: 24px;
-  margin-bottom: 10px;
 }
 
-.post-date,
-.comment-date {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 10px;
+.post-content {
+  margin-top: 10px;
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
   body {
     padding: 10px;
   }
 
-  header,
-  footer {
-    text-align: left;
-  }
-
-  form {
-    width: 100%;
+  main {
+    padding: 10px;
   }
 }
