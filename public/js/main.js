@@ -65,17 +65,17 @@ document.addEventListener("DOMContentLoaded", () => {
           method: "POST",
           body: JSON.stringify(newUser),
           headers: { "Content-Type": "application/json" },
-        }).catch((err) => {
-          console.error("Fetch error:", err); // Log any errors that occur when sending the Fetch request
         });
 
-        if (response.ok) {
-          location.reload(); // Or redirect to the dashboard
-        } else {
-          alert("Failed to sign up");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        location.reload(); // Or redirect to the dashboard
       } catch (err) {
-        console.error("Signup error:", err);
+        console.error("Signup error:", err.message);
+        console.error(err.stack);
+        alert("Failed to sign up");
       }
     }
   });

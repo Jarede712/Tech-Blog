@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3001;
 
 // Set up session storage using Sequelize
 const sess = {
-  secret: "my-static-secret", // replace this with your own secret
+  secret: process.env.SESSION_SECRET, // use environment variable
   cookie: {},
   resave: false,
   saveUninitialized: true,

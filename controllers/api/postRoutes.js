@@ -31,11 +31,12 @@ router.get("/:id", async (req, res) => {
 });
 
 // Route to create a new post
+// Route to create a new post
 router.post("/", withAuth, async (req, res) => {
   try {
     const newPost = await Post.create({
       ...req.body,
-      userId: req.session.userId,
+      user_id: req.session.user_id,
     });
 
     res.status(200).json(newPost);
@@ -50,7 +51,7 @@ router.put("/:id", withAuth, async (req, res) => {
     const updatedPost = await Post.update(req.body, {
       where: {
         id: req.params.id,
-        userId: req.session.userId,
+        user_id: req.session.user_id,
       },
     });
 
@@ -70,7 +71,7 @@ router.delete("/:id", withAuth, async (req, res) => {
     const deletedPost = await Post.destroy({
       where: {
         id: req.params.id,
-        userId: req.session.userId,
+        user_id: req.session.user_id,
       },
     });
 

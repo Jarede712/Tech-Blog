@@ -11,31 +11,54 @@ router.get("/signup", (req, res) => {
 // Route to register a new user
 router.post("/signup", async (req, res) => {
   try {
-    // Check if a user with the given email already exists
-    const existingUser = await User.findOne({
-      where: { email: req.body.email },
-    });
+    const { username, email, password } = req.body;
+
+    // Check if all the required fields are present
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    const existingUser = await User.findOne({ where: { email } });
 
     if (existingUser) {
       return res.status(400).json({ message: "Email is already in use" });
     }
 
-    const newUser = await User.create({
-      ...req.body,
-      password: await bcrypt.hash(req.body.password, 10),
-    });
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = await User.create({
+        username,
+        email,
+        password: hashedPassword,
+      });
 
-    req.session
-      .save(() => {
-        req.session.userId = newUser.id;
-        req.session.logged_in = true;
+      try {
+        await new Promise((resolve, reject) => {
+          req.session.user_id = newUser.id;
+          req.session.logged_in = true;
+
+          req.session.save((err) => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve();
+          });
+        });
 
         return res.status(200).json(newUser);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.log(err); // Log any errors that occur when saving the session
         return res.status(500).json(err);
-      });
+      }
+    } catch (err) {
+      if (err.name === "SequelizeUniqueConstraintError") {
+        return res.status(400).json({ message: "Email is already in use" });
+      }
+
+      console.log(err); // Log any other errors that occur when creating the user
+      return res.status(400).json(err);
+    }
   } catch (err) {
     console.log(err); // Log any errors that occur when creating the user
     return res.status(400).json(err);
@@ -67,7 +90,7 @@ router.post("/login", async (req, res) => {
     }
 
     req.session.save(() => {
-      req.session.userId = user.id;
+      req.session.user_id = user.id;
       req.session.logged_in = true;
 
       res.json({ user, message: "You are now logged in!" });
